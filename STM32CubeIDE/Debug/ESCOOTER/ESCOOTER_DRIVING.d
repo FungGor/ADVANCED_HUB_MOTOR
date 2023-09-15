@@ -21,7 +21,7 @@ ESCOOTER/ESCOOTER_DRIVING.o: ../ESCOOTER/ESCOOTER_DRIVING.c \
  ../ESCOOTER/ESCOOTER_MonitorTask.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h \
- ../ESCOOTER/Cruise_Control.h ../../Inc/mc_api.h \
+ ../ESCOOTER/Cruise_Control.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
  ../../Inc/mc_stm_types.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h \
@@ -63,7 +63,7 @@ ESCOOTER/ESCOOTER_DRIVING.o: ../ESCOOTER/ESCOOTER_DRIVING.c \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dac.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h \
- ../../Inc/mc_interface.h \
+ ../../Inc/mc_api.h ../../Inc/mc_interface.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/state_machine.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h \
@@ -141,7 +141,6 @@ ESCOOTER/ESCOOTER_DRIVING.o: ../ESCOOTER/ESCOOTER_DRIVING.c \
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h:
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h:
 ../ESCOOTER/Cruise_Control.h:
-../../Inc/mc_api.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../Inc/mc_stm_types.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h:
@@ -183,6 +182,7 @@ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dac.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:
+../../Inc/mc_api.h:
 ../../Inc/mc_interface.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/state_machine.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:

@@ -235,6 +235,9 @@ void ESCOOTER_ParameterMonitoring(void const *argument)
     	{
         	pstateHandle = ESCOOTER_PhysicalParameterMonitoring(&pstateHandle);
         	ESCOOTER_Set_PhysicalParam(&pstateHandle);
+        	ESCOOTER_Get_Speed();
+        	ESCOOTER_Get_PhaseCurrent();
+        	ESCOOTER_Get_PhaseVoltage();
     	}
     	osDelay(PERIODIC_CAPTURE_TIME);
     	task_Counter ++;

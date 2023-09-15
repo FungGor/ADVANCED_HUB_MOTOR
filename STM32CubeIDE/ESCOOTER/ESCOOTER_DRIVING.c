@@ -9,6 +9,7 @@
 #include "POWER_CONTROL.h"
 #include "POWER_CONTROL_LL.h"
 #include "Cruise_Control.h"
+#include "mc_type.h"
 #include "cmsis_os.h"
 #include "mc_api.h"
 #include "main.h"
@@ -37,19 +38,26 @@ void ESCOOTER_Set_PhysicalParam(ESCOOTER_Physical_State_t *motorParam)
 	 motorStatus = *motorParam;
 }
 
+int16_t MOTOR_SPEED = 0;
 void ESCOOTER_Get_Speed()
 {
-
+	/*Convert Back to RPM since the rotor speed is expressed in tenths of Hz*/
+	MOTOR_SPEED = (motorStatus.current_speed*_RPM)/SPEED_UNIT;
 }
 
+float PHASE_CURRENT = 0;
 void ESCOOTER_Get_PhaseCurrent()
 {
-
+   /*Convert back to Amps from s16A*/
+	PHASE_CURRENT = ((motorStatus.phase_current)*3.3) / (65536*20*0.002);
 }
 
+float PHASE_VOLTAGE = 0;
 void ESCOOTER_Get_PhaseVoltage()
 {
-
+   /*Convert back to Volt from s16V*/
+	PHASE_VOLTAGE = ((motorStatus.phase_voltage)/(1.7321*32767))*36;
+	PHASE_VOLTAGE = PHASE_VOLTAGE/1.4142;
 }
 
 void ESCOOTER_Get_MotorState()
