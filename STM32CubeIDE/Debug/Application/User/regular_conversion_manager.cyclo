@@ -1,0 +1,7 @@
+regular_conversion_manager.c:179:9:RCM_RegisterRegConv	27
+regular_conversion_manager.c:146:9:RCM_RegisterRegConv_WithCB	2
+regular_conversion_manager.c:241:10:RCM_ExecRegularConv	3
+regular_conversion_manager.c:272:6:RCM_RequestUserConv	2
+regular_conversion_manager.c:293:10:RCM_GetUserConv	2
+regular_conversion_manager.c:311:6:RCM_ExecUserConv	3
+regular_conversion_manager.c:336:21:RCM_GetUserConvState	1

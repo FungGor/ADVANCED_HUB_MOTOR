@@ -1,0 +1,2 @@
+../ESCOOTER/ESCOOTER_MonitorTask.c:11:6:ESCOOTER_PhysicalParameterInit	0	static
+../ESCOOTER/ESCOOTER_MonitorTask.c:32:27:ESCOOTER_PhysicalParameterMonitoring	16	static

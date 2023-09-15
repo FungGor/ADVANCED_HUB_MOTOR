@@ -1,0 +1,3 @@
+../ESCOOTER/escooter_config.c:13:6:ESCOOTER_DrivingModeSetDefault	4	static
+../ESCOOTER/escooter_config.c:23:6:ESCOOTER_ConfigDrivingMode	4	static
+../ESCOOTER/escooter_config.c:37:6:ESCOOTER_DetermineDrivingMode	0	static

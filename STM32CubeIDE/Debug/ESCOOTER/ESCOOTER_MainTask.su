@@ -1,0 +1,12 @@
+../ESCOOTER/ESCOOTER_MainTask.c:27:6:ESboot	8	static
+../ESCOOTER/ESCOOTER_MainTask.c:58:6:ESCOOTER_DriveModeConfig	0	static
+../ESCOOTER/ESCOOTER_MainTask.c:66:6:ESCOOTER_InputThrottleSignal	8	static
+../ESCOOTER/ESCOOTER_MainTask.c:81:6:ESCOOTER_InputBrakeSignal	8	static
+../ESCOOTER/ESCOOTER_MainTask.c:91:6:ESCOOTER_DEBUG_CancelBrakeSignal	0	static
+../ESCOOTER/ESCOOTER_MainTask.c:99:6:ESCOOTER_IsCarReady	0	static
+../ESCOOTER/ESCOOTER_MainTask.c:112:6:ESCOOTER_SendReportStatus	0	static
+../ESCOOTER/ESCOOTER_MainTask.c:117:6:ESCOOTER_GetReportStatus	0	static
+../ESCOOTER/ESCOOTER_MainTask.c:122:6:ESCOOTER_DRIVING_CONTROL	8	static
+../ESCOOTER/ESCOOTER_MainTask.c:143:13:ESCOOTER_StateMachineHighFrequencyTask	32	static
+../ESCOOTER/ESCOOTER_MainTask.c:229:6:ESCOOTER_ParameterMonitoring	24	static
+../ESCOOTER/ESCOOTER_MainTask.c:244:6:ESCOOTER_Stop_Driving_Task	8	static

@@ -1,0 +1,12 @@
+ESCOOTER_MainTask.c:27:6:ESboot	1
+ESCOOTER_MainTask.c:58:6:ESCOOTER_DriveModeConfig	1
+ESCOOTER_MainTask.c:66:6:ESCOOTER_InputThrottleSignal	1
+ESCOOTER_MainTask.c:81:6:ESCOOTER_InputBrakeSignal	1
+ESCOOTER_MainTask.c:91:6:ESCOOTER_DEBUG_CancelBrakeSignal	1
+ESCOOTER_MainTask.c:99:6:ESCOOTER_IsCarReady	1
+ESCOOTER_MainTask.c:112:6:ESCOOTER_SendReportStatus	1
+ESCOOTER_MainTask.c:117:6:ESCOOTER_GetReportStatus	1
+ESCOOTER_MainTask.c:122:6:ESCOOTER_DRIVING_CONTROL	4
+ESCOOTER_MainTask.c:143:13:ESCOOTER_StateMachineHighFrequencyTask	13
+ESCOOTER_MainTask.c:229:6:ESCOOTER_ParameterMonitoring	2
+ESCOOTER_MainTask.c:244:6:ESCOOTER_Stop_Driving_Task	3

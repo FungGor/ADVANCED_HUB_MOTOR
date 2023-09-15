@@ -1,0 +1,2 @@
+motorcontrol.c:52:13:MX_MotorControl_Init	1
+motorcontrol.c:62:6:vPortSetupTimerInterrupt	1

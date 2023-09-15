@@ -1,0 +1,6 @@
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:71:6:ADC_IRQHandler	0	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:102:6:TIM1_UP_TIM10_IRQHandler	0	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:120:6:TIM1_BRK_TIM9_IRQHandler	8	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:143:6:TIM2_IRQHandler	8	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:186:6:USART2_IRQHandler	16	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/stm32f4xx_mc_it.c:236:6:HardFault_Handler	16	static

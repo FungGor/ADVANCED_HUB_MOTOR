@@ -1,0 +1,9 @@
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:168:13:MCP_ReceivedFrame	72	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:140:13:MCP_WaitNextFrame	8	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:105:13:MCP_Init	24	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:130:13:MCP_OnTimeOut	8	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:155:13:MCP_SentFrame	8	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:797:13:MCP_SendOverrunMessage	16	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:808:13:MCP_SendTimeoutMessage	16	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:819:13:MCP_SendATRMessage	64	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/Src/motor_control_protocol.c:860:13:MCP_SendBadCRCMessage	16	static
