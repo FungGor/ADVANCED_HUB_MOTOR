@@ -698,7 +698,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
     		   pHandle -> fFcpSend(pHandle->pFCP, ACK_NOERROR,&release_Brake,1);
     		   /*User Tries to Release the Brake -> Just For the Debug Purpose*/
     		   //ESCOOTER_DEBUG_CancelBrakeSignal();
-    		   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_RESET);
+    		   //HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_RESET);
     	   }
     	   break;
 
@@ -739,7 +739,6 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	uint16_t time_Ramp = buffer[8] + (buffer[9] << 8);
       	ESCOOTER_DriveModeConfig(max_IQ,max_Speed,time_Ramp);
       	pHandle -> fFcpSend(pHandle->pFCP, ACK_NOERROR, &DRIVE_MODE_CONFIG_SUCCESS,1);
-      	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
       }
       break;
 

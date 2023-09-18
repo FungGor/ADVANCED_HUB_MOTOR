@@ -74,17 +74,54 @@ int16_t throttle_Current = 0;
 int16_t speedLimit = 0;
 int16_t AMPMAX = 0;
 uint16_t acceleration = 0;
+uint8_t Speed_Compare = 0;
+int16_t prevSpeed = 0;
+uint8_t decelerate = 0;
+uint8_t go = 0;
 void ESCOOTER_Driving_Start()
 {
-	//retransmissionTimerStart();
-	//MC_ProgramTorqueRampMotor1(modeControl.TARGET_IQ,modeControl.RAMP_DURATION);
-	//MC_StartMotor1();
     throttle_Current = modeControl.TARGET_IQ;
     speedLimit = modeControl.SPEED_LIMIT;
     AMPMAX = modeControl.IQ_LIMIT;
     acceleration = modeControl.RAMP_DURATION;
-    MC_ProgramTorqueRampMotor1(throttle_Current,acceleration);
-    MC_StartMotor1();
+
+
+    if(Speed_Compare == 0)
+    {
+        prevSpeed = throttle_Current;
+        Speed_Compare = 1;
+    }
+    else if (Speed_Compare == 1)
+    {
+    	if (throttle_Current < prevSpeed)
+    	{
+            decelerate = 1;
+    	}
+    	else if(throttle_Current > prevSpeed)
+    	{
+    		decelerate = 0;
+    	}
+    	Speed_Compare = 0;
+    }
+
+    if(decelerate == 1)
+    {
+    	//qd_t targetValue;
+    	//targetValue.q = throttle_Current;
+    	//targetValue.d = 0;
+    	//MC_SetCurrentReferenceMotor1(targetValue);
+    	//MC_StartMotor1();
+    	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+        MC_ProgramTorqueRampMotor1(throttle_Current,0);
+        MC_StartMotor1();
+    	go = 0;
+    }
+    else if(decelerate == 0){
+    	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+        MC_ProgramTorqueRampMotor1(throttle_Current,acceleration);
+        MC_StartMotor1();
+    	go = 1;
+    }
 }
 
 uint8_t stop = 0;
@@ -100,7 +137,7 @@ uint8_t fuckup = 0;
 void MOTOR_BRAKE()
 {
    fuckup = 1;
-   MC_StopMotor1();
+  MC_StopMotor1();
 }
 
 /*This thread might be useful (?) This thread will be deleted (?)*/

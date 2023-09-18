@@ -20,9 +20,48 @@ static void MX_USART2_UART_Init(void);
 void startMediumFrequencyTask(void const * argument);
 extern void StartSafetyTask(void const * argument);
 static void MX_NVIC_Init(void);
+static void SYS_GET_RESET_SOURCE(void);
+
+uint8_t RST_SOURCE = 0xFF;
+
+static void SYS_GET_RESET_SOURCE()
+{
+	if(__HAL_RCC_GET_FLAG(RCC_FLAG_LPWRRST))
+	{
+		RST_SOURCE = 0x01;
+	}
+	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST))
+	{
+		RST_SOURCE = 0x02;
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
+	}
+	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_PINRST))
+	{
+		RST_SOURCE = 0x03;
+		HAL_NVIC_SystemReset();
+
+	}
+	else if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST))
+	{
+		RST_SOURCE = 0x04;
+	}
+	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_BORRST))
+	{
+		RST_SOURCE = 0x05;
+	}
+	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST))
+	{
+		RST_SOURCE = 0x06;
+	}
+	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_IWDGRST))
+	{
+		RST_SOURCE = 0x07;
+	}
+}
 
 int main(void)
 {
+  /*Better to do software reset.... for system stability......*/
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
@@ -30,12 +69,8 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_USART2_UART_Init();
-  ESCOOTER_init();
   MX_MotorControl_Init();
   MX_NVIC_Init();
-  POWER_CONTROL_Init();
-  POWER_CONTROL_START_MONITORING();
-  retransmissionTimerStart();
 
   osThreadDef(mediumFrequency, startMediumFrequencyTask, osPriorityNormal, 0, 128);
   mediumFrequencyHandle = osThreadCreate(osThread(mediumFrequency), NULL);
@@ -43,9 +78,17 @@ int main(void)
   osThreadDef(safety, StartSafetyTask, osPriorityAboveNormal, 0, 128);
   safetyHandle = osThreadCreate(osThread(safety), NULL);
 
+  //SYS_GET_RESET_SOURCE();
+  POWER_CONTROL_Init();
+  POWER_CONTROL_START_MONITORING();
+  retransmissionTimerStart();
+
   /*Start RTOS E-Scooter Task */
+  ESCOOTER_init();
   ESCOOTER_RunCoreTask();
   osKernelStart();
+
+
   while (1)
   {
   }
