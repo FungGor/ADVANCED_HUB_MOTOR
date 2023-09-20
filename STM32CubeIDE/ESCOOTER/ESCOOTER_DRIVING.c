@@ -43,6 +43,7 @@ void ESCOOTER_Get_Speed()
 {
 	/*Convert Back to RPM since the rotor speed is expressed in tenths of Hz*/
 	MOTOR_SPEED = (motorStatus.current_speed*_RPM)/SPEED_UNIT;
+	/*RPM -> km/h*/
 }
 
 float PHASE_CURRENT = 0;
@@ -78,14 +79,9 @@ uint8_t Speed_Compare = 0;
 int16_t prevSpeed = 0;
 uint8_t decelerate = 0;
 uint8_t go = 0;
-void ESCOOTER_Driving_Start()
+bool run = false;
+bool ESCOOTER_Detect_Decelerate()
 {
-    throttle_Current = modeControl.TARGET_IQ;
-    speedLimit = modeControl.SPEED_LIMIT;
-    AMPMAX = modeControl.IQ_LIMIT;
-    acceleration = modeControl.RAMP_DURATION;
-
-
     if(Speed_Compare == 0)
     {
         prevSpeed = throttle_Current;
@@ -103,23 +99,61 @@ void ESCOOTER_Driving_Start()
     	}
     	Speed_Compare = 0;
     }
+    return decelerate;
+}
 
-    if(decelerate == 1)
+void ESCOOTER_Driving_Start()
+{
+    throttle_Current = modeControl.TARGET_IQ;
+    speedLimit = modeControl.SPEED_LIMIT;
+    AMPMAX = modeControl.IQ_LIMIT;
+    acceleration = modeControl.RAMP_DURATION;
+    ESCOOTER_Detect_Decelerate();
+    if(ESCOOTER_Detect_Decelerate() == 1)
     {
     	//qd_t targetValue;
     	//targetValue.q = throttle_Current;
     	//targetValue.d = 0;
     	//MC_SetCurrentReferenceMotor1(targetValue);
     	//MC_StartMotor1();
-    	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+    	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         MC_ProgramTorqueRampMotor1(throttle_Current,0);
-        MC_StartMotor1();
+        run = MC_StartMotor1();
+        /*Make a debug console in case it doesn't work*/
+        if(run == true || (MC_HasRampCompletedMotor1() == true) )
+        {
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
+        }
+
+        /*WHEN THE SYSTEM IS RUNNING WITH POWER SUPPLY ONLY WITHOUT DEBUGGING MODE. THE FOLLOWING ERROR OCCURS.
+         *TO RUN THE MOTOR, THE ERROR MSG IS REMOVED EVERY TIME THE WARNING HAPPENS
+         *IT'S BETTER TO COMMENT OUT THOSE INSTRUCTIONS WHEN THE E-SCOOTER IS GET OFF THE GROUND, OTHERWISE IT'S
+         *VERY FUCKING DANGEROUS.*/
+        if(MC_GetOccurredFaultsMotor1() == 0x0004)
+        {
+        	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+        	MC_AcknowledgeFaultMotor1();
+        }
     	go = 0;
     }
-    else if(decelerate == 0){
-    	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+    else if(ESCOOTER_Detect_Decelerate() == 0){
+    	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         MC_ProgramTorqueRampMotor1(throttle_Current,acceleration);
-        MC_StartMotor1();
+        run = MC_StartMotor1();
+        /*Make a debug console in case it doesn't work*/
+        if(run == true || (MC_HasRampCompletedMotor1() == true) )
+        {
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
+        }
+        /*WHEN THE SYSTEM IS RUNNING WITH POWER SUPPLY ONLY WITHOUT DEBUGGING MODE. THE FOLLOWING ERROR OCCURS.
+         *TO RUN THE MOTOR, THE ERROR MSG IS REMOVED EVERY TIME THE WARNING HAPPENS
+         *IT'S BETTER TO COMMENT OUT THOSE INSTRUCTIONS WHEN THE E-SCOOTER IS GET OFF THE GROUND, OTHERWISE IT'S
+         *VERY FUCKING DANGEROUS.*/
+        if( MC_GetOccurredFaultsMotor1() == 0x0004)
+        {
+        	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+        	MC_AcknowledgeFaultMotor1();
+        }
     	go = 1;
     }
 }
@@ -137,7 +171,7 @@ uint8_t fuckup = 0;
 void MOTOR_BRAKE()
 {
    fuckup = 1;
-  MC_StopMotor1();
+   MC_StopMotor1();
 }
 
 /*This thread might be useful (?) This thread will be deleted (?)*/

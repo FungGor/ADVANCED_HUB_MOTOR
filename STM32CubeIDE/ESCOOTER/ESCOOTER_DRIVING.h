@@ -36,6 +36,8 @@ void ESCOOTER_Get_MotorState();
 
 void Speed_Cruise_Control();
 
+bool ESCOOTER_Detect_Decelerate();
+
 void ESCOOTER_Driving_Start();
 
 void ESCOOTER_Driving_Stop();
