@@ -3,6 +3,7 @@
 #include "escooter_control.h"
 #include "POWER_CONTROL_LL.h"
 #include "POWER_CONTROL.h"
+#define POWER_CONTROL
 
 ADC_HandleTypeDef hadc1;
 TIM_HandleTypeDef htim1;
@@ -33,13 +34,10 @@ static void SYS_GET_RESET_SOURCE()
 	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST))
 	{
 		RST_SOURCE = 0x02;
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
 	}
 	else if(__HAL_RCC_GET_FLAG(RCC_FLAG_PINRST))
 	{
 		RST_SOURCE = 0x03;
-		HAL_NVIC_SystemReset();
-
 	}
 	else if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST))
 	{
@@ -78,10 +76,12 @@ int main(void)
   osThreadDef(safety, StartSafetyTask, osPriorityAboveNormal, 0, 128);
   safetyHandle = osThreadCreate(osThread(safety), NULL);
 
+#ifdef POWER_CONTROL
   //SYS_GET_RESET_SOURCE();
   POWER_CONTROL_Init();
   POWER_CONTROL_START_MONITORING();
   retransmissionTimerStart();
+#endif
 
   /*Start RTOS E-Scooter Task */
   ESCOOTER_init();

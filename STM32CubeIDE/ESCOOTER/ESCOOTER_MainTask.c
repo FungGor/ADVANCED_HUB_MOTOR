@@ -238,6 +238,7 @@ void ESCOOTER_ParameterMonitoring(void const *argument)
         	ESCOOTER_Get_Speed();
         	ESCOOTER_Get_PhaseCurrent();
         	ESCOOTER_Get_PhaseVoltage();
+        	/*If there are any faults detected, the monitor must report the errors by calling ESCOOTER_SendReportStatus() !! */
     	}
     	osDelay(PERIODIC_CAPTURE_TIME);
     	task_Counter ++;

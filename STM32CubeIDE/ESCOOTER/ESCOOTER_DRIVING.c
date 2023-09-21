@@ -9,6 +9,7 @@
 #include "POWER_CONTROL.h"
 #include "POWER_CONTROL_LL.h"
 #include "Cruise_Control.h"
+#include "ESCOOTER_MainTask.h"
 #include "mc_type.h"
 #include "cmsis_os.h"
 #include "mc_api.h"
@@ -44,6 +45,7 @@ void ESCOOTER_Get_Speed()
 	/*Convert Back to RPM since the rotor speed is expressed in tenths of Hz*/
 	MOTOR_SPEED = (motorStatus.current_speed*_RPM)/SPEED_UNIT;
 	/*RPM -> km/h*/
+	//MOTOR_SPEED = 22*MOTOR_SPEED*0.001885;
 }
 
 float PHASE_CURRENT = 0;
@@ -102,6 +104,7 @@ bool ESCOOTER_Detect_Decelerate()
     return decelerate;
 }
 
+bool connect_failed = false;
 void ESCOOTER_Driving_Start()
 {
     throttle_Current = modeControl.TARGET_IQ;
@@ -109,7 +112,7 @@ void ESCOOTER_Driving_Start()
     AMPMAX = modeControl.IQ_LIMIT;
     acceleration = modeControl.RAMP_DURATION;
     ESCOOTER_Detect_Decelerate();
-    if(ESCOOTER_Detect_Decelerate() == 1)
+    if(ESCOOTER_Detect_Decelerate() == 1 && connect_failed == false)
     {
     	//qd_t targetValue;
     	//targetValue.q = throttle_Current;
@@ -134,9 +137,16 @@ void ESCOOTER_Driving_Start()
         	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         	MC_AcknowledgeFaultMotor1();
         }
+
+        /*System Does Error Handling (Just for System Debug)*/
+        if (ESCOOTER_GetReportStatus() == true)
+        {
+        	connect_failed = true;
+        }
+
     	go = 0;
     }
-    else if(ESCOOTER_Detect_Decelerate() == 0){
+    else if(ESCOOTER_Detect_Decelerate() == 0 && connect_failed == false){
     	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         MC_ProgramTorqueRampMotor1(throttle_Current,acceleration);
         run = MC_StartMotor1();
@@ -154,7 +164,20 @@ void ESCOOTER_Driving_Start()
         	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         	MC_AcknowledgeFaultMotor1();
         }
+
+        /*System Does Error Handling (Just for System Debug)*/
+        if (ESCOOTER_GetReportStatus() == true)
+        {
+        	/*JUMP OUT OF THIS LOOP*/
+        	connect_failed = true;
+        }
     	go = 1;
+    }
+
+    if(connect_failed == true) /*Emergency Stop the Motor in case heartbeat loses*/
+    {
+    	MC_ProgramTorqueRampMotor1(0,0);
+    	MC_StartMotor1();
     }
 }
 

@@ -74,6 +74,7 @@ void POWER_PROTOCOL_CHECKSTATUS()
     	if(protocolHandler.RxPacketLossCount > MAXIMUM_PACKET_RETRANSMIT)
     	{
             protocolHandler.protocolFailure = true;
+            /*Reports there is a system error, motor should be stopped!*/
             ESCOOTER_SendReportStatus(true);
             /*If protocolFailure = true, E-Scooter must do the following tasks:
              * Case 1: If the E-Scooter is in DRIVING_START:
