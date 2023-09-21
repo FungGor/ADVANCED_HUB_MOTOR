@@ -174,10 +174,13 @@ void ESCOOTER_Driving_Start()
     	go = 1;
     }
 
+    /*HANDLE ONE MORE CASE: --> TAKE STM32 ERROR CODE in case motor errors*/
     if(connect_failed == true) /*Emergency Stop the Motor in case heartbeat loses*/
     {
     	MC_ProgramTorqueRampMotor1(0,0);
     	MC_StartMotor1();
+    	ESCOOTER_saveStatus(3);
+    	ESCOOTER_UpdateDrivingState(3);
     }
 }
 

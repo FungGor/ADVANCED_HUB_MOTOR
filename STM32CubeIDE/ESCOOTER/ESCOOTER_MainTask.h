@@ -19,9 +19,10 @@ extern "C" {
 #define PERIODIC_CAPTURE_TIME 100
 typedef enum
 {
-	DRIVING_IDLE  = 0,  /*EScooter is in standby mode! */
-	DRIVING_START = 1,  /*EScooter is in driving mode! */
-	DRIVING_STOP  = 2   /*EScooter is in stop mode! */
+	DRIVING_IDLE  = 0,   /*EScooter is in standby mode! */
+	DRIVING_START = 1,   /*EScooter is in driving mode! */
+	DRIVING_STOP  = 2,   /*EScooter is in stop mode! */
+	EMERGENCY_STOP = 3   /*EScooter stops if fatal error happens*/
 }ESCOOTER_Driving_State_t;
 
 typedef struct
@@ -43,6 +44,8 @@ void ESCOOTER_DriveModeConfig(int16_t max_IQ, int16_t allowable_rpm, uint16_t ac
 void ESCOOTER_SendReportStatus(bool error);
 
 bool ESCOOTER_GetReportStatus();
+
+void ESCOOTER_UpdateDrivingState(uint8_t state);
 
 bool ESCOOTER_IsCarReady();
 

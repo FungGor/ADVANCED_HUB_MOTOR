@@ -119,6 +119,13 @@ bool ESCOOTER_GetReportStatus()
     return tempHandle.systemError;
 }
 
+void ESCOOTER_UpdateDrivingState(uint8_t state)
+{
+     tempHandle.bDrivingState = 3;
+}
+
+uint8_t emergency_triggered = 0;
+uint8_t failure = 0;
 void ESCOOTER_DRIVING_CONTROL()
 {
 	if(ESCOOTER_getStatus() == DRIVING_IDLE)
@@ -133,12 +140,20 @@ void ESCOOTER_DRIVING_CONTROL()
 	{
         ESCOOTER_Driving_Stop();
 	}
+	else if(ESCOOTER_getStatus() == EMERGENCY_STOP)
+	{
+		emergency_triggered = 1;
+		failure = 1;
+		/*RESET all original states. Might be it's not necessary (?) */
+		tempHandle.THROTTLE_Pressed = false;
+		//tempHandle.bDrivingState = EMERGENCY_STOP;
+		/*Now the system stucks in this loop, for safety purpose, use must power off and check the connections again before power on again*/
+	}
 }
 
 /**Control The E-Scooter's Main Task**/
 /*Please check all the functionalities e.g. brake,throttle,parameter inputs carefully before running the High Frequency Task*/
 /*Input some dummy commands -> check it*/
-uint8_t failure = 0;
 uint16_t error = 0;
 __weak void ESCOOTER_StateMachineHighFrequencyTask(void const *argument)
 {
