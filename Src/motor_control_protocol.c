@@ -739,6 +739,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	uint16_t time_Ramp = buffer[8] + (buffer[9] << 8);
       	ESCOOTER_DriveModeConfig(max_IQ,max_Speed,time_Ramp);
       	pHandle -> fFcpSend(pHandle->pFCP, ACK_NOERROR, &DRIVE_MODE_CONFIG_SUCCESS,1);
+      	HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_13);
       }
       break;
 
@@ -753,10 +754,13 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	 * */
       	bNoError = true;
       	RequireAck = false;
+      	FrameSentACK();
+      	Stop_TxWaitTimer();
       	int16_t speed_limit = buffer[0] + (buffer[1] << 8) + (buffer[2] << 16) + (buffer[3] << 24);
       	int16_t throttle_IQ = buffer[4] + (buffer[5] << 8) + (buffer[6] << 16) + (buffer[7] << 24);
       	ESCOOTER_InputThrottleSignal(throttle_IQ);
       	pHandle -> fFcpSend(pHandle->pFCP,ACK_NOERROR, &THROTTLE_SIGNAL_RECEIVED,1);
+      	TxWaitTimerStart();
       }
       break;
 

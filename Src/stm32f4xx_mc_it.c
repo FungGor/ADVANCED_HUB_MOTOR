@@ -29,6 +29,8 @@
 #include "motorcontrol.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx.h"
+#include "POWER_CONTROL_LL.h"
+#include "POWER_CONTROL.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -209,7 +211,6 @@ void USART_IRQHandler(void)
   {
     UFCP_TX_IRQ_Handler(&pUSART);
     /* USER CODE BEGIN USART_TXE */
-
     /* USER CODE END USART_TXE   */
   }
 

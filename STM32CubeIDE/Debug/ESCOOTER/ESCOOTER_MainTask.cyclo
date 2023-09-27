@@ -8,6 +8,6 @@ ESCOOTER_MainTask.c:112:6:ESCOOTER_SendReportStatus	1
 ESCOOTER_MainTask.c:117:6:ESCOOTER_GetReportStatus	1
 ESCOOTER_MainTask.c:122:6:ESCOOTER_UpdateDrivingState	1
 ESCOOTER_MainTask.c:129:6:ESCOOTER_DRIVING_CONTROL	5
-ESCOOTER_MainTask.c:158:13:ESCOOTER_StateMachineHighFrequencyTask	14
-ESCOOTER_MainTask.c:244:6:ESCOOTER_ParameterMonitoring	2
-ESCOOTER_MainTask.c:263:6:ESCOOTER_Stop_Driving_Task	3
+ESCOOTER_MainTask.c:159:13:ESCOOTER_StateMachineHighFrequencyTask	14
+ESCOOTER_MainTask.c:245:6:ESCOOTER_ParameterMonitoring	2
+ESCOOTER_MainTask.c:264:6:ESCOOTER_Stop_Driving_Task	3

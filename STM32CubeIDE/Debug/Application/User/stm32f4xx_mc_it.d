@@ -96,7 +96,9 @@ Application/User/stm32f4xx_mc_it.o: \
  ../../Inc/parameters_conversion_f4xx.h ../../Inc/pmsm_motor_parameters.h \
  ../../Inc/power_stage_parameters.h ../../Inc/drive_parameters.h \
  ../../Inc/motorcontrol.h ../../Inc/mc_config.h \
- ../../Inc/parameters_conversion.h ../../Inc/mc_api.h
+ ../../Inc/parameters_conversion.h ../../Inc/mc_api.h \
+ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h \
+ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../Inc/mc_stm_types.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h:
@@ -202,3 +204,5 @@ Application/User/stm32f4xx_mc_it.o: \
 ../../Inc/mc_config.h:
 ../../Inc/parameters_conversion.h:
 ../../Inc/mc_api.h:
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h:
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h:

@@ -15,6 +15,8 @@ static Power_Status_Indicator_t *tailLightControl;
 static Power_sysProtocol_Handler_t *reTransMgnt;
 POWER_State_t state_Handler;
 Power_Control_Heartbeat_t protocolHandler;
+sysProtocol_txFail_Handler_t *txFailure;
+Power_Control_TxFrame_t txHandler;
 
 void POWER_CONTROL_CONFG(POWER_Control_t *cmd)
 {
@@ -29,6 +31,11 @@ void POWER_INDICATOR_CONFG(Power_Status_Indicator_t *indicator)
 void POWER_RETRANSMIT_CTL_CONFG(Power_sysProtocol_Handler_t *reTransTIM)
 {
     reTransMgnt = reTransTIM;
+}
+
+void POWER_TXFAIL_CTL_CONFG(sysProtocol_txFail_Handler_t *isTxfail)
+{
+	txFailure = isTxfail;
 }
 
 void POWER_SET_DEFAULT_STATE(POWER_State_t state)
@@ -52,15 +59,37 @@ void retransmissionTimerStart()
 	reTransMgnt->reTransmissionOn();
 }
 
+void Stop_TxWaitTimer()
+{
+	txHandler.TxPacketLossCount = 0;
+	txFailure->txFailureOff();
+}
+
+void TxWaitTimerStart()
+{
+	txFailure->txFailureOn();
+}
+
 void PacketLossCount()
 {
    protocolHandler.RxPacketLossCount++;
+}
+
+void FrameFailCount()
+{
+	txHandler.TxPacketLossCount++;
 }
 
 void POWER_PACKET_ACK()
 {
 	protocolHandler.RxPacketLossCount = 0;
 	protocolHandler.heartBeatSent++;
+}
+
+void FrameSentACK()
+{
+	txHandler.TxPacketLossCount = 0;
+	txHandler.FrameSent++;
 }
 
 void POWER_PROTOCOL_CHECKSTATUS()
@@ -89,6 +118,31 @@ void POWER_PROTOCOL_CHECKSTATUS()
     }
 }
 
+void THROTTLE_FRAME_CHECKSTATUS()
+{
+     if(txHandler.TxPacketLossCount == 0)
+     {
+    	 txHandler.isTxDisconnected = false;
+     }
+     else if (txHandler.TxPacketLossCount != 0)
+     {
+         if(txHandler.TxPacketLossCount > MAXIMUM_PACKET_RETRANSMIT)
+         {
+        	 txHandler.isTxDisconnected = true;
+        	 /*Reports there is a system error, motor should be stopped!*/
+        	 ESCOOTER_SendReportStatus(true);
+             /*If isTxDisconnected = true, E-Scooter must do the following tasks:
+              * Case 1: If the E-Scooter is in DRIVING_START:
+              * --> Stop the motor by changing the state from DRIVING_START to DRIVING_IDLE
+              * --> Automatically Power Off
+              *
+              * Case 2: If the E-Scooter is in DRIVING_IDLE:
+              * --> Automatically Power Off
+              * */
+         }
+     }
+}
+
 void POWER_SLEEP()
 {
 	pwrControl->sleep();
@@ -112,7 +166,7 @@ void POWER_CTL_MONITORING(void const *argument)
 
 		    case POWER_ON:
 		    	pwrControl -> powerOn();
-		    	tailLightControl->switch_on();
+		    	//tailLightControl->switch_on();
 		    	break;
 
 		    case WAKEUP:

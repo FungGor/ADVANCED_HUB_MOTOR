@@ -3,7 +3,8 @@
 #include "escooter_control.h"
 #include "POWER_CONTROL_LL.h"
 #include "POWER_CONTROL.h"
-#define POWER_CONTROL
+#define POWER_CONTROL_ENABLE
+#define ESCOOTER_CONTROL_ENABLE
 
 ADC_HandleTypeDef hadc1;
 TIM_HandleTypeDef htim1;
@@ -76,16 +77,22 @@ int main(void)
   osThreadDef(safety, StartSafetyTask, osPriorityAboveNormal, 0, 128);
   safetyHandle = osThreadCreate(osThread(safety), NULL);
 
-#ifdef POWER_CONTROL
+#ifdef POWER_CONTROL_ENABLE
   //SYS_GET_RESET_SOURCE();
   POWER_CONTROL_Init();
   POWER_CONTROL_START_MONITORING();
-  retransmissionTimerStart();
+  retransmissionTimerStart(); /*In case Rx is disconnected*/
+  POWER_CONTROL_TxConnect_Init(); /*In case Tx is disconnected*/
+  TxWaitTimerStart(); /*In case Tx is disconnected*/
 #endif
 
+#ifdef ESCOOTER_CONTROL_ENABLE
   /*Start RTOS E-Scooter Task */
   ESCOOTER_init();
   ESCOOTER_RunCoreTask();
+#endif
+
+  /*Starts RTOS Tasks*/
   osKernelStart();
 
 

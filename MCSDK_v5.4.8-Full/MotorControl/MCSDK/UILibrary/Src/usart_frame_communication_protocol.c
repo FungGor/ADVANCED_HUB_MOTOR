@@ -246,7 +246,6 @@ __weak uint8_t UFCP_Receive( FCP_Handle_t * pHandle )
 __weak uint8_t UFCP_Send( FCP_Handle_t * pHandle, uint8_t code, uint8_t *buffer, uint8_t size)
 {
   uint8_t ret_val;
-
   if ( FCP_TRANSFER_IDLE == pHandle->TxFrameState )
   {
     UFCP_Handle_t * pActualHandle = (UFCP_Handle_t *) pHandle;

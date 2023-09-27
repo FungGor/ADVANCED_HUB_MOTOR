@@ -24,8 +24,11 @@ static void SYSTEM_INDICATOR_OFF();
 static void SYSTEM_PERIPHERAL_DISABLE();
 static void SYSTEM_PERIPHERAL_SLEEP_DISABLE();
 static void SYSTEM_START_RETRANSMISSION_TIMER();
+static void SYSTEM_START_TXLOSS_TIMER();
 static void SYSTEM_STOP_RETRANSMISSION_TIMER();
+static void SYSTEM_STOP_TXLOSS_TIMER();
 void TIM3_IRQHandler(void);
+void TIM4_IRQHandler(void);
 
 static POWER_Control_t power_control =
 {
@@ -46,6 +49,12 @@ static Power_sysProtocol_Handler_t protocol_control =
 		SYSTEM_STOP_RETRANSMISSION_TIMER
 };
 
+static sysProtocol_txFail_Handler_t txFail_control =
+{
+		SYSTEM_START_TXLOSS_TIMER,
+		SYSTEM_STOP_TXLOSS_TIMER
+};
+
 /*This function must be called before starting Power Monitoring*/
 void POWER_CONTROL_Init()
 {
@@ -53,6 +62,11 @@ void POWER_CONTROL_Init()
 	POWER_INDICATOR_CONFG(&power_status_indicator);
 	POWER_RETRANSMIT_CTL_CONFG(&protocol_control);
 	POWER_SET_DEFAULT_STATE(POWER_ON);
+}
+
+void POWER_CONTROL_TxConnect_Init()
+{
+	POWER_TXFAIL_CTL_CONFG(&txFail_control);
 }
 
 void POWER_CONTROL_START_MONITORING()
@@ -85,6 +99,7 @@ static void SYSTEM_POWER_ON()
 	//HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,GPIO_PIN_SET);
 	power = 1;
 	POWER_PROTOCOL_CHECKSTATUS();
+	THROTTLE_FRAME_CHECKSTATUS();
 	/*
 	if(ESCOOTER_GetReportStatus() == true)
 	{
@@ -173,6 +188,40 @@ static void SYSTEM_START_RETRANSMISSION_TIMER()
    TIM3->CR1 |= TIM_CR1_CEN;
 }
 
+/*Might be it's not necessary, just for debugging. (Just in case)*/
+static void SYSTEM_START_TXLOSS_TIMER()
+{
+	//Enable the TIM4 CLOCK to count for TX Loss in Motor Controller
+	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
+
+	/*Config for the prescalar + auto reload register*/
+	TIM4->PSC = 10000; /*Pre-scalar*/
+	TIM4->ARR = 8400;  /*Auto reload register*/
+
+	/*Set up the CounterMode: Up*/
+	TIM4->CR1 &= ~TIM_CR1_DIR;
+
+	/*Setup the clock division as 1*/
+	TIM4->CR1 |= TIM_CR1_CKD_1;
+
+	/*Auto-Reload Pre-load Disable*/
+	TIM4->CR1 &= ~TIM_CR1_ARPE;
+
+	/*Setup the Clock Source as Internal Clock*/
+	TIM4->SMCR &= ~TIM_SMCR_SMS;
+
+	/*Enable the Interrupt*/
+	TIM4->DIER |= TIM_DIER_UIE;
+
+	/*Set the Interrupt Priority*/
+	NVIC_SetPriority(TIM4_IRQn, 10);
+
+	NVIC_EnableIRQ(TIM4_IRQn);
+
+	/*Start the timer*/
+	TIM4->CR1 |= TIM_CR1_CEN;
+}
+
 static void SYSTEM_STOP_RETRANSMISSION_TIMER()
 {
    /*Stop the timer*/
@@ -182,11 +231,33 @@ static void SYSTEM_STOP_RETRANSMISSION_TIMER()
    TIM3->DIER &= ~TIM_DIER_UIE;
 }
 
+/*Might be it's not necessary, just for debugging. (Just in case)*/
+static void SYSTEM_STOP_TXLOSS_TIMER()
+{
+   /*Stop the timer*/
+   TIM4->CR1 &= ~TIM_CR1_CEN;
+
+   /*Disable the Interrupt*/
+   TIM4->DIER &= ~TIM_DIER_UIE;
+}
+
+/*Timer 3 Interrupt Handler*/
 void TIM3_IRQHandler(void)
 {
 	if(TIM3->SR & TIM_SR_UIF)
 	{
 		PacketLossCount();
 		TIM3->SR &= ~TIM_SR_UIF;
+	}
+}
+
+/*Might be it's not necessary, just for debugging. (Just in case)*/
+/*Timer 4 Interrupt Handler*/
+void TIM4_IRQHandler(void)
+{
+	if(TIM4->SR & TIM_SR_UIF)
+	{
+		FrameFailCount();
+		TIM4->SR &= ~TIM_SR_UIF;
 	}
 }

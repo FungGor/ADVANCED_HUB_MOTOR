@@ -8,6 +8,6 @@
 ../ESCOOTER/ESCOOTER_MainTask.c:117:6:ESCOOTER_GetReportStatus	0	static
 ../ESCOOTER/ESCOOTER_MainTask.c:122:6:ESCOOTER_UpdateDrivingState	0	static
 ../ESCOOTER/ESCOOTER_MainTask.c:129:6:ESCOOTER_DRIVING_CONTROL	8	static
-../ESCOOTER/ESCOOTER_MainTask.c:158:13:ESCOOTER_StateMachineHighFrequencyTask	32	static
-../ESCOOTER/ESCOOTER_MainTask.c:244:6:ESCOOTER_ParameterMonitoring	24	static
-../ESCOOTER/ESCOOTER_MainTask.c:263:6:ESCOOTER_Stop_Driving_Task	8	static
+../ESCOOTER/ESCOOTER_MainTask.c:159:13:ESCOOTER_StateMachineHighFrequencyTask	32	static
+../ESCOOTER/ESCOOTER_MainTask.c:245:6:ESCOOTER_ParameterMonitoring	24	static
+../ESCOOTER/ESCOOTER_MainTask.c:264:6:ESCOOTER_Stop_Driving_Task	8	static

@@ -142,6 +142,7 @@ void ESCOOTER_DRIVING_CONTROL()
 	}
 	else if(ESCOOTER_getStatus() == EMERGENCY_STOP)
 	{
+    	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
 		emergency_triggered = 1;
 		failure = 1;
 		/*RESET all original states. Might be it's not necessary (?) */

@@ -60,16 +60,38 @@ typedef struct
     reTransmit_Stop  reTransmissionOff;
 }Power_sysProtocol_Handler_t;
 
+typedef struct
+{
+	bool isTxDisconnected;
+	uint8_t TxPacketLossCount;
+	uint8_t FrameSent;
+}Power_Control_TxFrame_t;
+
+typedef void (*txFail_Start)(void);
+typedef void (*txFail_Stop)(void);
+typedef struct
+{
+	txFail_Start txFailureOn;
+	txFail_Stop  txFailureOff;
+
+}sysProtocol_txFail_Handler_t;
+
 void POWER_CONTROL_CONFG(POWER_Control_t *cmd);
 void POWER_INDICATOR_CONFG(Power_Status_Indicator_t *indicator);
 void POWER_RETRANSMIT_CTL_CONFG(Power_sysProtocol_Handler_t *reTransTIM);
+void POWER_TXFAIL_CTL_CONFG(sysProtocol_txFail_Handler_t *isTxfail);
 void POWER_SET_DEFAULT_STATE(POWER_State_t state);
 void POWER_CHANGE_STATE(POWER_State_t state);
 void Stop_RetransmissionTimer();
 void retransmissionTimerStart();
+void Stop_TxWaitTimer();
+void TxWaitTimerStart();
 void PacketLossCount();
+void FrameFailCount();
 void POWER_PACKET_ACK ();
+void FrameSentACK();
 void POWER_PROTOCOL_CHECKSTATUS();
+void THROTTLE_FRAME_CHECKSTATUS();
 void POWER_SLEEP();
 void POWER_WAKEUP();
 void POWER_CTL_MONITORING(void const *argument);

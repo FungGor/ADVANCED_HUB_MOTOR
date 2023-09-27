@@ -5,4 +5,4 @@ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/usart_frame_communication_protocol.c:74:15:UFCP_RX_IRQ_Handler	24	static,ignoring_inline_asm
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/usart_frame_communication_protocol.c:201:13:UFCP_OVR_IRQ_Handler	16	static
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/usart_frame_communication_protocol.c:214:13:UFCP_TIMEOUT_IRQ_Handler	16	static
-C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/usart_frame_communication_protocol.c:274:13:UFCP_AbortReceive	0	static
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/usart_frame_communication_protocol.c:273:13:UFCP_AbortReceive	0	static

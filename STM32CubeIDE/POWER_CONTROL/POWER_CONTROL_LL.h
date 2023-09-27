@@ -14,6 +14,7 @@ extern "C"
 #endif
 
 extern void POWER_CONTROL_Init();
+extern void POWER_CONTROL_TxConnect_Init();
 extern void POWER_CONTROL_START_MONITORING();
 
 #ifdef __cplusplus
