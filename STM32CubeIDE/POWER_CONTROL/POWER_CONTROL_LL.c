@@ -111,15 +111,6 @@ static void SYSTEM_POWER_ON()
 /*Pretend to be a tail light --> PA5*/
 static void SYSTEM_INDICATOR_ON()
 {
-	/* Enable the clock for GPIOA */
-	//RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-
-	/* Configure GPIO pin PA5 as output */
-	//GPIOA->MODER |= GPIO_MODER_MODER5_0; //Output Mode
-	//GPIOA->OTYPER &= ~GPIO_OTYPER_OT_5; //Output push-pull (default)
-	//GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR5_0;
-	//GPIOA->PUPDR &= ~GPIO_PUPDR_PUPDR5;
-	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13,GPIO_PIN_SET);
 }
 

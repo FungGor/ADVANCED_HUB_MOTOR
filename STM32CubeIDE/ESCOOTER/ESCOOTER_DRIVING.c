@@ -193,7 +193,7 @@ uint8_t fuckup = 0;
 void MOTOR_BRAKE()
 {
    fuckup = 1;
-   MC_StopMotor1();
+   MC_ProgramTorqueRampMotor1(0,0);
 }
 
 /*This thread might be useful (?) This thread will be deleted (?)*/
