@@ -3,8 +3,6 @@
 #include "escooter_control.h"
 #include "POWER_CONTROL_LL.h"
 #include "POWER_CONTROL.h"
-#define POWER_CONTROL_ENABLE
-#define ESCOOTER_CONTROL_ENABLE
 
 ADC_HandleTypeDef hadc1;
 TIM_HandleTypeDef htim1;
@@ -12,6 +10,8 @@ TIM_HandleTypeDef htim2;
 UART_HandleTypeDef huart2;
 osThreadId mediumFrequencyHandle;
 osThreadId safetyHandle;
+#define POWER_CONTROL_ENABLE
+#define ESCOOTER_CONTROL_ENABLE
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);

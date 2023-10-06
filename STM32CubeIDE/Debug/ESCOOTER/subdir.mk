@@ -10,6 +10,7 @@ C_SRCS += \
 ../ESCOOTER/ESCOOTER_DRIVING.c \
 ../ESCOOTER/ESCOOTER_MainTask.c \
 ../ESCOOTER/ESCOOTER_MonitorTask.c \
+../ESCOOTER/SafetySetting.c \
 ../ESCOOTER/escooter_config.c \
 ../ESCOOTER/escooter_control.c 
 
@@ -19,6 +20,7 @@ OBJS += \
 ./ESCOOTER/ESCOOTER_DRIVING.o \
 ./ESCOOTER/ESCOOTER_MainTask.o \
 ./ESCOOTER/ESCOOTER_MonitorTask.o \
+./ESCOOTER/SafetySetting.o \
 ./ESCOOTER/escooter_config.o \
 ./ESCOOTER/escooter_control.o 
 
@@ -28,6 +30,7 @@ C_DEPS += \
 ./ESCOOTER/ESCOOTER_DRIVING.d \
 ./ESCOOTER/ESCOOTER_MainTask.d \
 ./ESCOOTER/ESCOOTER_MonitorTask.d \
+./ESCOOTER/SafetySetting.d \
 ./ESCOOTER/escooter_config.d \
 ./ESCOOTER/escooter_control.d 
 
@@ -39,7 +42,7 @@ ESCOOTER/%.o ESCOOTER/%.su ESCOOTER/%.cyclo: ../ESCOOTER/%.c ESCOOTER/subdir.mk
 clean: clean-ESCOOTER
 
 clean-ESCOOTER:
-	-$(RM) ./ESCOOTER/Cruise_Control.cyclo ./ESCOOTER/Cruise_Control.d ./ESCOOTER/Cruise_Control.o ./ESCOOTER/Cruise_Control.su ./ESCOOTER/ESCOOTER_BrakeAndThrottle.cyclo ./ESCOOTER/ESCOOTER_BrakeAndThrottle.d ./ESCOOTER/ESCOOTER_BrakeAndThrottle.o ./ESCOOTER/ESCOOTER_BrakeAndThrottle.su ./ESCOOTER/ESCOOTER_DRIVING.cyclo ./ESCOOTER/ESCOOTER_DRIVING.d ./ESCOOTER/ESCOOTER_DRIVING.o ./ESCOOTER/ESCOOTER_DRIVING.su ./ESCOOTER/ESCOOTER_MainTask.cyclo ./ESCOOTER/ESCOOTER_MainTask.d ./ESCOOTER/ESCOOTER_MainTask.o ./ESCOOTER/ESCOOTER_MainTask.su ./ESCOOTER/ESCOOTER_MonitorTask.cyclo ./ESCOOTER/ESCOOTER_MonitorTask.d ./ESCOOTER/ESCOOTER_MonitorTask.o ./ESCOOTER/ESCOOTER_MonitorTask.su ./ESCOOTER/escooter_config.cyclo ./ESCOOTER/escooter_config.d ./ESCOOTER/escooter_config.o ./ESCOOTER/escooter_config.su ./ESCOOTER/escooter_control.cyclo ./ESCOOTER/escooter_control.d ./ESCOOTER/escooter_control.o ./ESCOOTER/escooter_control.su
+	-$(RM) ./ESCOOTER/Cruise_Control.cyclo ./ESCOOTER/Cruise_Control.d ./ESCOOTER/Cruise_Control.o ./ESCOOTER/Cruise_Control.su ./ESCOOTER/ESCOOTER_BrakeAndThrottle.cyclo ./ESCOOTER/ESCOOTER_BrakeAndThrottle.d ./ESCOOTER/ESCOOTER_BrakeAndThrottle.o ./ESCOOTER/ESCOOTER_BrakeAndThrottle.su ./ESCOOTER/ESCOOTER_DRIVING.cyclo ./ESCOOTER/ESCOOTER_DRIVING.d ./ESCOOTER/ESCOOTER_DRIVING.o ./ESCOOTER/ESCOOTER_DRIVING.su ./ESCOOTER/ESCOOTER_MainTask.cyclo ./ESCOOTER/ESCOOTER_MainTask.d ./ESCOOTER/ESCOOTER_MainTask.o ./ESCOOTER/ESCOOTER_MainTask.su ./ESCOOTER/ESCOOTER_MonitorTask.cyclo ./ESCOOTER/ESCOOTER_MonitorTask.d ./ESCOOTER/ESCOOTER_MonitorTask.o ./ESCOOTER/ESCOOTER_MonitorTask.su ./ESCOOTER/SafetySetting.cyclo ./ESCOOTER/SafetySetting.d ./ESCOOTER/SafetySetting.o ./ESCOOTER/SafetySetting.su ./ESCOOTER/escooter_config.cyclo ./ESCOOTER/escooter_config.d ./ESCOOTER/escooter_config.o ./ESCOOTER/escooter_config.su ./ESCOOTER/escooter_control.cyclo ./ESCOOTER/escooter_control.d ./ESCOOTER/escooter_control.o ./ESCOOTER/escooter_control.su
 
 .PHONY: clean-ESCOOTER
 

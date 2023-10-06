@@ -43,6 +43,7 @@
 "./ESCOOTER/ESCOOTER_DRIVING.o"
 "./ESCOOTER/ESCOOTER_MainTask.o"
 "./ESCOOTER/ESCOOTER_MonitorTask.o"
+"./ESCOOTER/SafetySetting.o"
 "./ESCOOTER/escooter_config.o"
 "./ESCOOTER/escooter_control.o"
 "./Middlewares/FreeRTOS/cmsis_os.o"

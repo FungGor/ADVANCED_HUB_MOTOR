@@ -18,6 +18,8 @@ extern "C" {
 #include "ESCOOTER_BrakeAndThrottle.h"
 #include "ESCOOTER_MonitorTask.h"
 
+void ESCOOTER_Safety_Limit_Setting();
+
 void ESCOOTER_saveStatus (uint8_t state);
 
 ESCOOTER_Driving_State_t ESCOOTER_getStatus();

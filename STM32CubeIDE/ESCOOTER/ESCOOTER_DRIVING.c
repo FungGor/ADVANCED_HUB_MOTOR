@@ -9,6 +9,7 @@
 #include "POWER_CONTROL.h"
 #include "POWER_CONTROL_LL.h"
 #include "Cruise_Control.h"
+#include "SafetySetting.h"
 #include "ESCOOTER_MainTask.h"
 #include "mc_type.h"
 #include "cmsis_os.h"
@@ -18,6 +19,12 @@
 ESCOOTER_Driving_State_t Driving_State;     /*Determines the current E-Scooter's operation status*/
 ESCOOTER_BrakeANDThrottleInput_t modeControl; /*Motor Physical Limitations*/
 ESCOOTER_Physical_State_t motorStatus; /*Current Motor Physical Status*/
+Cruise_Control_t *cruiseHandle;
+
+void ESCOOTER_Safety_Limit_Setting()
+{
+	Cruise_Control_Setting(&CruiseControl);
+}
 
 void ESCOOTER_saveStatus (uint8_t state)
 {
@@ -99,6 +106,8 @@ bool ESCOOTER_Detect_Decelerate()
 
 bool connect_failed = false;
 bool motor_failed = false;
+int16_t Iq_Value = 0;
+int16_t Id_Value = 0;
 void ESCOOTER_Driving_Start()
 {
     throttle_Current = modeControl.TARGET_IQ;
@@ -106,6 +115,7 @@ void ESCOOTER_Driving_Start()
     AMPMAX = modeControl.IQ_LIMIT;
     acceleration = modeControl.RAMP_DURATION;
     ESCOOTER_Detect_Decelerate();
+    /*Deceleration Mode*/
     if(ESCOOTER_Detect_Decelerate() == 1 && connect_failed == false && motor_failed == false)
     {
     	//qd_t targetValue;
@@ -139,6 +149,7 @@ void ESCOOTER_Driving_Start()
 
     	go = 0;
     }
+    /*Acceleration Mode*/
     else if(ESCOOTER_Detect_Decelerate() == 0 && connect_failed == false && motor_failed == false){
     	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         MC_ProgramTorqueRampMotor1(throttle_Current,0);
