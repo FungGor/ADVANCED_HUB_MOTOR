@@ -24,7 +24,13 @@ extern void StartSafetyTask(void const * argument);
 static void MX_NVIC_Init(void);
 static void SYS_GET_RESET_SOURCE(void);
 
+/*System Configuration Control*/
 uint8_t RST_SOURCE = 0xFF;
+
+/*UART_OFF = 0x00 --> UART Still Activates
+ *UART_OFF = 0x01 --> UART is Deactivated*/
+uint8_t UART_OFF  = 0x00;
+uint8_t LOW_POWER = 0x00;
 
 static void SYS_GET_RESET_SOURCE()
 {
@@ -455,14 +461,35 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14, GPIO_PIN_RESET);
+  if(UART_OFF == 0x00)
+  {
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14, GPIO_PIN_RESET);
+	  /*Configure GPIO pins : PB12 PB13 PB14 */
+	  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
+	  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	  GPIO_InitStruct.Pull = GPIO_NOPULL;
+	  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  }
+  else if(UART_OFF == 0x01)
+  {
+	  /*Use UART2 Rx Pin PA3 as External Interrupt Pin PORTA Pin 3 --> i.e. EXTI3*/
+	  GPIO_InitStruct.Pin  = GPIO_PIN_3; /*UART2 Rx Pin PA3*/
+	  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING; /*Falling Edge Triggered Interrupt by UART from CC2640 Dash-board*/
+	  GPIO_InitStruct.Pull = GPIO_NOPULL; /*Activate Internal Pull Up Resistor!*/
+	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	  /*Activate Falling Edge Triggered Interrupt --> External Line Interrupt 3*/
+	  HAL_NVIC_SetPriority(EXTI3_IRQn,3,0);
+	  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
 
-  /*Configure GPIO pins : PB12 PB13 PB14 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+	  GPIO_InitStruct.Pin  = GPIO_PIN_2; /*UART2 Tx Pin PA2*/
+	  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	  GPIO_InitStruct.Pull = GPIO_NOPULL;
+	  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_2,GPIO_PIN_RESET);
+
+  }
 
 }
 
@@ -515,6 +542,33 @@ void suspend_SystemTask(void)
     vTaskSuspend(safetyHandle);
 }
 
+void send_error_message(uint8_t *message, uint16_t size)
+{
+    HAL_UART_Transmit(&huart2, message, size, 1000);
+}
+
+void Peripheral_DeInit()
+{
+	if(HAL_UART_DeInit(&huart2) == HAL_OK)
+	{
+		UART_OFF = 0x01;
+		MX_GPIO_Init();
+		/*Turn off the light*/
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13,GPIO_PIN_RESET);
+		//HAL_SuspendTick();
+		HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI); //I have commented 2024-01-10
+	}
+	else if(HAL_UART_DeInit(&huart2) != HAL_OK)
+	{
+		Error_Handler();
+	}
+}
+
+void ReBoot_Clock()
+{
+	SystemClock_Config();
+}
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None

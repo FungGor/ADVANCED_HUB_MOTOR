@@ -64,6 +64,7 @@ void SPD_TIM_M1_IRQHandler(void);
 void USART_IRQHandler(void);
 void HardFault_Handler(void);
 void SysTick_Handler(void);
+void EXTI3_IRQHandler(void);
 
 /**
   * @brief  This function handles ADC1/ADC2 interrupt request.
@@ -283,7 +284,18 @@ void HardFault_Handler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+/*Dashboard wakes up the motor controller by EXTI Line Interrupt*/
+uint8_t triggered = 0;
+void EXTI3_IRQHandler(void)
+{
+   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_3) != RESET)
+   {
+	   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_3);
+       /*Wake Up the Motor Controller*/
+	   POWER_CHANGE_STATE(WAKEUP);
+	   triggered ++;
+   }
+}
 /* USER CODE END 1 */
 
 /**

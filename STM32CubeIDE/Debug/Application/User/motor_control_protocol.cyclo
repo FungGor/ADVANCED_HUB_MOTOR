@@ -3,7 +3,7 @@ motor_control_protocol.c:140:13:MCP_WaitNextFrame	1
 motor_control_protocol.c:105:13:MCP_Init	1
 motor_control_protocol.c:130:13:MCP_OnTimeOut	1
 motor_control_protocol.c:155:13:MCP_SentFrame	1
-motor_control_protocol.c:800:13:MCP_SendOverrunMessage	1
-motor_control_protocol.c:811:13:MCP_SendTimeoutMessage	1
-motor_control_protocol.c:822:13:MCP_SendATRMessage	3
-motor_control_protocol.c:863:13:MCP_SendBadCRCMessage	1
+motor_control_protocol.c:801:13:MCP_SendOverrunMessage	1
+motor_control_protocol.c:812:13:MCP_SendTimeoutMessage	1
+motor_control_protocol.c:823:13:MCP_SendATRMessage	3
+motor_control_protocol.c:864:13:MCP_SendBadCRCMessage	1

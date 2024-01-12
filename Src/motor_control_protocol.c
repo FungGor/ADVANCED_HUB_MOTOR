@@ -606,11 +606,12 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
     	    }
     	    break;
 
-    	    case MC_PROTOCOL_SYS_WAKEUP:
+    	    case MC_PROTOCOL_SYS_WAKEUP: /*You can ignore it as WAKE Up is triggered by external line ISR*/
     	    {
-    	    	//$2E$01$01$30
+    	    	//$2E$01$01$30//
     	    	uint8_t BRAKE_SIGNAL_RECEIVED = 0x06;
     	    	pHandle -> fFcpSend(pHandle->pFCP, ACK_NOERROR,&BRAKE_SIGNAL_RECEIVED,1);
+    	    	//HAL_NVIC_SystemReset();
     	    }
     	    break;
 

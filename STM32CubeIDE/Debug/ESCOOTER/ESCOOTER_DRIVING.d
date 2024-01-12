@@ -22,6 +22,7 @@ ESCOOTER/ESCOOTER_DRIVING.o: ../ESCOOTER/ESCOOTER_DRIVING.c \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h \
  ../ESCOOTER/Cruise_Control.h ../ESCOOTER/SafetySetting.h \
+ ../ESCOOTER/ERROR_HANDLER.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
  ../../Inc/mc_stm_types.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h \
@@ -142,6 +143,7 @@ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h:
 ../ESCOOTER/Cruise_Control.h:
 ../ESCOOTER/SafetySetting.h:
+../ESCOOTER/ERROR_HANDLER.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../Inc/mc_stm_types.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h:

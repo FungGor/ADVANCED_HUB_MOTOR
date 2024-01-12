@@ -39,6 +39,7 @@
 "./Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_uart.o"
 "./Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_adc.o"
 "./ESCOOTER/Cruise_Control.o"
+"./ESCOOTER/ERROR_HANDLER.o"
 "./ESCOOTER/ESCOOTER_BrakeAndThrottle.o"
 "./ESCOOTER/ESCOOTER_DRIVING.o"
 "./ESCOOTER/ESCOOTER_MainTask.o"

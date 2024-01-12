@@ -78,18 +78,24 @@ void POWER_CONTROL_START_MONITORING()
 
 static void SYSTEM_POWER_OFF()
 {
-	//Peripheral_DeInit();
+	Peripheral_DeInit(); /*Comment it out in case it's in debug mode!*/
 	Stop_RetransmissionTimer();
 	ESCOOTER_StopCoreTask();
 	suspend_SystemTask();
+	HAL_SuspendTick(); //ADDED 2024-01-10
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_SLEEPENTRY_WFI);
+	//HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 }
 
 static void SYSTEM_BOOT()
 {
-	/* Reset all the system peripherals ! Reset the program counter!
+	/* Reset all the system peripherals ! Reset the program counter! You could de-active EXTI First
 	 * Resume RTOS tasks !
 	 * */
+	HAL_GPIO_DeInit(GPIOA,GPIO_PIN_3);
+	HAL_GPIO_DeInit(GPIOA,GPIO_PIN_2);
+	ReBoot_Clock(); //ADDED 2024-01-10
+	HAL_ResumeTick(); //ADDED 2024-01-10
 	HAL_NVIC_SystemReset();
 }
 

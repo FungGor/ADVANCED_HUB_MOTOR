@@ -11,6 +11,7 @@
 #include "Cruise_Control.h"
 #include "SafetySetting.h"
 #include "ESCOOTER_MainTask.h"
+#include "ERROR_HANDLER.h"
 #include "mc_type.h"
 #include "cmsis_os.h"
 #include "mc_api.h"
@@ -185,12 +186,16 @@ void ESCOOTER_Driving_Start()
     	MC_StartMotor1();
     	ESCOOTER_saveStatus(3);
     	ESCOOTER_UpdateDrivingState(3);
+    	//Send Error Codes
+    	ERROR_HANDLE_MSG(CONNECTION_FAIL);
     }
 
     if(motor_failed == true)
     {
     	ESCOOTER_saveStatus(3);
     	ESCOOTER_UpdateDrivingState(3);
+    	//Send Error Codes
+    	ERROR_HANDLE_MSG(HALL_SENSOR_FAIL);
     }
 }
 

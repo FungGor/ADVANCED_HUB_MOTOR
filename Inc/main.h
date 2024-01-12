@@ -56,7 +56,18 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
+/*You can ignore it just in case*/
 void suspend_SystemTask(void);
+
+/*Motor Controller sends Error Message to Dashboard when motor and E-Scooter fails*/
+void send_error_message(uint8_t *message,uint16_t size);
+
+/*The System Calls Peripheral_DeInit() when STOP Mode (Low Power Mode) is triggered */
+void Peripheral_DeInit();
+
+/*Re-Open the System Clock*/
+void ReBoot_Clock();
+
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

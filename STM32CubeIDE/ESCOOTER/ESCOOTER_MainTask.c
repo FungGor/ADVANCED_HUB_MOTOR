@@ -11,6 +11,7 @@
 #include "ESCOOTER_MonitorTask.h"
 #include "ESCOOTER_BrakeAndThrottle.h"
 #include "ESCOOTER_DRIVING.h"
+#include "ERROR_HANDLER.h"
 #include "escooter_config.h"
 #include "mc_api.h"
 #include "main.h"
@@ -158,6 +159,7 @@ void ESCOOTER_DRIVING_CONTROL()
 uint16_t error = 0;
 __weak void ESCOOTER_StateMachineHighFrequencyTask(void const *argument)
 {
+	 ERROR_HANDLE_MSG(BOOT_COMPLETED);
      for(;;)
      {
     	  /*Before using the MC_API to track the Motor's status, to ensure the State Machine runs properly, it's better to input dummy data to check if the
