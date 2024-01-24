@@ -392,6 +392,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
           if ( bNoError == true )
           {
             /* 16bit variables */
+        	/*Acknowledgement is made to ensure msg is sent*/
         	FrameSentACK();
         	POWER_PACKET_ACK();
         	Stop_TxWaitTimer();
@@ -630,6 +631,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
     	    case MC_PROTOCOL_SYS_HEARTBEAT:
     	    {
     	    	//$2E$01$02$31
+    	    	/*Acknowledgement is made to ensure msg is sent*/
                 RequireAck = false;
                 bNoError = true;
                 FrameSentACK();
@@ -768,6 +770,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	 *For Example, if we wanna send the command with Dynamic IQ = 7800, Allowable Speed = 600:
       	 *$34$08$58$02$00$00$78$1E$00$00$2D
       	 * */
+    	/*Acknowledgement is made to ensure msg is sent*/
       	bNoError = true;
       	RequireAck = false;
       	FrameSentACK();
