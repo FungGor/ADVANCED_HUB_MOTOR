@@ -34,20 +34,11 @@ void ESCOOTER_Get_PhaseCurrent();
 
 void ESCOOTER_Get_PhaseVoltage();
 
-void ESCOOTER_Get_MotorState();
-
-void Speed_Cruise_Control();
-
-bool ESCOOTER_Detect_Decelerate();
-
 void ESCOOTER_Driving_Start();
 
 void ESCOOTER_Driving_Stop();
 
 void MOTOR_BRAKE(); /*Just for debugging purpose (?) **/
-
-/*This thread might be useful (?) This thread will be deleted (?)*/
-void ESCOOTER_DrivingTaskControl(void const * argument);
 
 #ifdef __cplusplus
 }

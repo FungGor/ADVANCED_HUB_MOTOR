@@ -72,98 +72,48 @@ void ESCOOTER_Get_PhaseVoltage()
 	PHASE_VOLTAGE = PHASE_VOLTAGE/1.4142;
 }
 
-void ESCOOTER_Get_MotorState()
-{
-
-}
-
-void Speed_Cruise_Control()
-{
-
-}
-
 int16_t throttle_Current = 0;
 int16_t speedLimit = 0;
 int16_t AMPMAX = 0;
 uint16_t acceleration = 0;
-uint8_t Speed_Compare = 0;
-int16_t prevSpeed = 0;
-uint8_t decelerate = 0;
+
 uint8_t go = 0;
 bool run = false;
-bool ESCOOTER_Detect_Decelerate()
-{
-    	if (throttle_Current < prevSpeed)
-    	{
-            decelerate = 1;
-    	}
-    	else if(throttle_Current > prevSpeed)
-    	{
-    		decelerate = 0;
-    	}
-    	prevSpeed = throttle_Current;
-    return decelerate;
-}
 
+#undef POWER_SUPPLY
 bool connect_failed = false;
 bool motor_failed = false;
-int16_t Iq_Value = 0;
-int16_t Id_Value = 0;
 void ESCOOTER_Driving_Start()
 {
     throttle_Current = modeControl.TARGET_IQ;
     speedLimit = modeControl.SPEED_LIMIT;
     AMPMAX = modeControl.IQ_LIMIT;
     acceleration = modeControl.RAMP_DURATION;
-    ESCOOTER_Detect_Decelerate();
-    /*Deceleration Mode*/
-    if(ESCOOTER_Detect_Decelerate() == 1 && connect_failed == false && motor_failed == false)
-    {
-    	//qd_t targetValue;
-    	//targetValue.q = throttle_Current;
-    	//targetValue.d = 0;
-    	//MC_SetCurrentReferenceMotor1(targetValue);
-    	//MC_StartMotor1();
-    	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-        MC_ProgramTorqueRampMotor1(throttle_Current,0);
-        run = MC_StartMotor1();
-        /*WHEN THE SYSTEM IS RUNNING WITH POWER SUPPLY ONLY WITHOUT DEBUGGING MODE. THE FOLLOWING ERROR OCCURS.
-         *TO RUN THE MOTOR, THE ERROR MSG IS REMOVED EVERY TIME THE WARNING HAPPENS
-         *IT'S BETTER TO COMMENT OUT THOSE INSTRUCTIONS WHEN THE E-SCOOTER IS GET OFF THE GROUND, OTHERWISE IT'S
-         *VERY FUCKING DANGEROUS.*/
-        if(MC_GetOccurredFaultsMotor1() == 0x0004)
-        {
-        	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-        	MC_AcknowledgeFaultMotor1();
-        }
-
-        /*System Does Error Handling (Just for System Debug)*/
-        if (ESCOOTER_GetReportStatus() == true)
-        {
-        	connect_failed = true;
-        }
-
-        if(motorStatus.previous_error != 0)
-        {
-        	motor_failed = true;
-        }
-
-    	go = 0;
-    }
     /*Acceleration Mode*/
-    else if(ESCOOTER_Detect_Decelerate() == 0 && connect_failed == false && motor_failed == false){
-    	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-        MC_ProgramTorqueRampMotor1(throttle_Current,0);
-        run = MC_StartMotor1();
+    if(connect_failed == false && motor_failed == false){
+    	if(throttle_Current != 0) /*Try to modify when Speed == 0 or Speed <= 3 km/h then shutdown*/
+    	{
+            MC_ProgramTorqueRampMotor1(throttle_Current,0);
+            run = MC_StartMotor1();
+    	}
+
+    	if(MOTOR_SPEED <= 10 && throttle_Current == 0)
+    	{
+    		MC_ProgramTorqueRampMotor1(throttle_Current,0);
+    		run = MC_StartMotor1();
+    		MC_StopMotor1();
+    	}
         /*WHEN THE SYSTEM IS RUNNING WITH POWER SUPPLY ONLY WITHOUT DEBUGGING MODE. THE FOLLOWING ERROR OCCURS.
          *TO RUN THE MOTOR, THE ERROR MSG IS REMOVED EVERY TIME THE WARNING HAPPENS
          *IT'S BETTER TO COMMENT OUT THOSE INSTRUCTIONS WHEN THE E-SCOOTER IS GET OFF THE GROUND, OTHERWISE IT'S
          *VERY FUCKING DANGEROUS.*/
+#ifdef POWER_SUPPLY
         if( MC_GetOccurredFaultsMotor1() == 0x0004)
         {
         	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
         	MC_AcknowledgeFaultMotor1();
         }
+#endif
 
         /*System Does Error Handling (Just for System Debug)*/
         if (ESCOOTER_GetReportStatus() == true)
@@ -184,10 +134,11 @@ void ESCOOTER_Driving_Start()
     {
     	MC_ProgramTorqueRampMotor1(0,0);
     	MC_StartMotor1();
+    	MC_StopMotor1();
     	ESCOOTER_saveStatus(3);
     	ESCOOTER_UpdateDrivingState(3);
     	//Send Error Codes
-    	ERROR_HANDLE_MSG(CONNECTION_FAIL);
+    	//ERROR_HANDLE_MSG(CONNECTION_FAIL);
     }
 
     if(motor_failed == true)
@@ -195,7 +146,7 @@ void ESCOOTER_Driving_Start()
     	ESCOOTER_saveStatus(3);
     	ESCOOTER_UpdateDrivingState(3);
     	//Send Error Codes
-    	ERROR_HANDLE_MSG(HALL_SENSOR_FAIL);
+    	//ERROR_HANDLE_MSG(HALL_SENSOR_FAIL);
     }
 }
 
@@ -205,36 +156,9 @@ void ESCOOTER_Driving_Stop()
 	stop = 1;
 }
 
-uint8_t fuckup = 0;
 void MOTOR_BRAKE()
 {
-   fuckup = 1;
    MC_ProgramTorqueRampMotor1(0,0);
-}
-
-/*This thread might be useful (?) This thread will be deleted (?)*/
-void ESCOOTER_DrivingTaskControl(void const * argument)
-{
-     for(;;)
-     {
-
-           switch(Driving_State)
-           {
-               case DRIVING_IDLE:
-            	   ESCOOTER_Driving_Stop();
-            	   break;
-
-               case DRIVING_START:
-            	   ESCOOTER_Driving_Start();
-            	   break;
-
-               case DRIVING_STOP:
-            	   ESCOOTER_Driving_Stop();
-            	   break;
-
-               default:
-            	   break;
-
-           }
-     }
+   MC_StartMotor1();
+   MC_StopMotor1();
 }

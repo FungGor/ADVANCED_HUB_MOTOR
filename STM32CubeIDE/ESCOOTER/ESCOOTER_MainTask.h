@@ -47,13 +47,7 @@ bool ESCOOTER_GetReportStatus();
 
 void ESCOOTER_UpdateDrivingState(uint8_t state);
 
-bool ESCOOTER_IsCarReady();
-
 void ESCOOTER_InputThrottleSignal(int16_t targetCurrent);
-
-void ESCOOTER_InputBrakeSignal();
-
-void ESCOOTER_DEBUG_CancelBrakeSignal();
 
 void ESCOOTER_Stop_Driving_Task();
 

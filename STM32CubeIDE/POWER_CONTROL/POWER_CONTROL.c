@@ -113,6 +113,7 @@ void POWER_PROTOCOL_CHECKSTATUS()
              * Case 2: If the E-Scooter is in DRIVING_IDLE:
              * --> Automatically Power Off
              * */
+            POWER_CHANGE_STATE(POWER_OFF); /*Added on 19th 2024*/
 
     	}
     }
@@ -139,6 +140,7 @@ void THROTTLE_FRAME_CHECKSTATUS()
               * Case 2: If the E-Scooter is in DRIVING_IDLE:
               * --> Automatically Power Off
               * */
+        	 POWER_CHANGE_STATE(POWER_OFF);
          }
      }
 }

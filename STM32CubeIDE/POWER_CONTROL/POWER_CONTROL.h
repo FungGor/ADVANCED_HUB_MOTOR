@@ -16,7 +16,7 @@ extern "C"
 #include <stdint.h>
 #include <stdbool.h>
 
-#define MAXIMUM_PACKET_RETRANSMIT   0x0A
+#define MAXIMUM_PACKET_RETRANSMIT   0x03 /*For Debug Purpose: 0x0A*/
 #define COMMUNICATION_ACTIVE        0x01
 #define COMMUNICATION_NOT_ACTIVE    0x00
 

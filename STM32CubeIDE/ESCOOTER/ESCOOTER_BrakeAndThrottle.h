@@ -31,17 +31,6 @@ typedef struct
 /*Input some dummy commands -> check it*/
 bool ESCOOTER_ThrottleSignalTrigger(ESCOOTER_BrakeANDThrottleInput_t *inputHandle);
 
-
-/**To be called by motor control protocol**/
-/**Before running the Main Task, please verify this function carefully**/
-/*Input some dummy commands -> check it*/
-bool ESCOOTER_BrakeSignalTrigger(ESCOOTER_Operation_t *opHandle, ESCOOTER_BrakeANDThrottleInput_t *inputHandle);
-
-/**To be called by motor control protocol**/
-/**Before running the Main Task, please verify this function carefully**/
-/*Input some dummy commands -> check it*/
-void ESCOOTER_DEBUG_ReleaseBrakeSignal(ESCOOTER_Operation_t *opHandle, ESCOOTER_BrakeANDThrottleInput_t *inputHandle);
-
 #ifdef __cplusplus
 }
 #endif

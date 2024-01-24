@@ -392,8 +392,14 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
           if ( bNoError == true )
           {
             /* 16bit variables */
+        	FrameSentACK();
+        	POWER_PACKET_ACK();
+        	Stop_TxWaitTimer();
+        	Stop_RetransmissionTimer();
             pHandle->fFcpSend(pHandle->pFCP, ACK_NOERROR, (uint8_t*)(&value), 2);
             RequireAck = false;
+            TxWaitTimerStart();
+            retransmissionTimerStart();
           }
         }
         break;
@@ -428,8 +434,14 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
           if ( bNoError == true )
           {
             /* 32bit variables */
+          	FrameSentACK();
+          	POWER_PACKET_ACK();
+          	Stop_TxWaitTimer();
+          	Stop_RetransmissionTimer();
             pHandle->fFcpSend(pHandle->pFCP, ACK_NOERROR, (uint8_t*)(&value), 4);
             RequireAck = false;
+            TxWaitTimerStart();
+            retransmissionTimerStart();
           }
         }
         break;
@@ -620,12 +632,15 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
     	    	//$2E$01$02$31
                 RequireAck = false;
                 bNoError = true;
+                FrameSentACK();
                 POWER_PACKET_ACK();
                 Stop_RetransmissionTimer();
+              	Stop_TxWaitTimer();
                 /*Send Heart-Beat ACK Signal to the dash-board*/
                 uint8_t heartbeat = 0x20;
                 pHandle -> fFcpSend(pHandle->pFCP, ACK_NOERROR,&heartbeat,1);
                 retransmissionTimerStart();
+              	TxWaitTimerStart();
     	    }
     	    break;
 
@@ -688,7 +703,7 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
               /*Trigger Brake Signal  -> Just For the Debug Purpose */
               //ESCOOTER_InputBrakeSignal();
               HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14,GPIO_PIN_SET);
-              MOTOR_BRAKE();
+              //MOTOR_BRAKE();
     	   }
     	   break;
 
@@ -756,12 +771,15 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	bNoError = true;
       	RequireAck = false;
       	FrameSentACK();
+      	POWER_PACKET_ACK();
       	Stop_TxWaitTimer();
+      	Stop_RetransmissionTimer();
       	int16_t speed_limit = buffer[0] + (buffer[1] << 8) + (buffer[2] << 16) + (buffer[3] << 24);
       	int16_t throttle_IQ = buffer[4] + (buffer[5] << 8) + (buffer[6] << 16) + (buffer[7] << 24);
       	ESCOOTER_InputThrottleSignal(throttle_IQ);
       	pHandle -> fFcpSend(pHandle->pFCP,ACK_NOERROR, &THROTTLE_SIGNAL_RECEIVED,1);
       	TxWaitTimerStart();
+      	retransmissionTimerStart();
       }
       break;
 
