@@ -33,7 +33,7 @@ __weak void ESCOOTER_RunCoreTask(void)
 __weak void ESCOOTER_StopCoreTask(void)
 {
     /*Stops the E-Scooter's main application*/
-	ESCOOTER_Stop_Driving_Task();
+	//ESCOOTER_Stop_Driving_Task();
 	vTaskSuspend(EScooterStateMachineHandle);
 	vTaskSuspend(EScooterMonitorHandle);
 }
