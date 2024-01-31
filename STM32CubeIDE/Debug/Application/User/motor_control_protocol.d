@@ -120,6 +120,7 @@ Application/User/motor_control_protocol.o: \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_MainTask.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_BrakeAndThrottle.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_MonitorTask.h \
+ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ERROR_HANDLER.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h \
  C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h
 ../../Inc/user_interface.h:
@@ -248,5 +249,6 @@ C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_MainTask.h:
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_BrakeAndThrottle.h:
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ESCOOTER_MonitorTask.h:
+C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/ESCOOTER/ERROR_HANDLER.h:
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL_LL.h:
 C:/Users/Public/Documents/Motor_Control/MOTOR_GO/ADVANCED_HUB_MOTOR/STM32CubeIDE/POWER_CONTROL/POWER_CONTROL.h:

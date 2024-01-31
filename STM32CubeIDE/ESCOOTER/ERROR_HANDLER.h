@@ -16,7 +16,7 @@ extern "C" {
 
 #define ERROR_CODE_PACKET             0x4A
 #define ERROR_MSG_HANDLE_LENGTH       0x01
-#define BOOT_COMPLETED                0x00   /*BOOT Completed*/
+#define SYSTEM_NORMAL                 0x00   /*BOOT Completed*/
 #define CONNECTION_FAIL               0x0A
 #define SYSTEM_ABNORMAL               0x0B
 
@@ -28,9 +28,9 @@ extern "C" {
 #define HALL_SENSOR_FAIL              0x3A
 #define ABNORMAL_TEMPERATURE          0x3C
 
-extern uint8_t MSG_CHECK(uint8_t *msg, uint8_t size);
+extern void SET_ERROR_CODE(uint16_t error_code);
 
-extern void ERROR_HANDLE_MSG(uint8_t error_code);
+extern uint8_t GET_ERROR_CODE();
 
 #ifdef __cplusplus
 }

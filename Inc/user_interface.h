@@ -272,8 +272,9 @@ typedef enum
 #define MC_PROTOCOL_CODE_SET_TORQUE_RAMP  0x0D
 #define MC_PROTOCOL_CODE_SET_SYSTEM_CONF  0x0E
 #define MC_PROTOCOL_CODE_ES_CONTROL       0x1E
-#define MC_PROTOCOL_TORQUE_RAMP_CONFIG    0x13  /*Determines E-Scooter's driving mode + limitations*/
-#define MC_PROTOCOL_TORQUE_DYNAMIC_CONFIG 0x14 /* Dynamic IQ or Current configuration triggered by throttle signals */
+#define MC_PROTOCOL_TORQUE_RAMP_CONFIG    0x13   /*Determines E-Scooter's driving mode + limitations*/
+#define MC_PROTOCOL_TORQUE_DYNAMIC_CONFIG 0x14   /*Dynamic IQ or Current configuration triggered by throttle signals */
+#define MC_PROTOCOL_CHECK_MOTOR_FAILURE   0x1F   /*Check Motor Failure, motor controller reports to dashboard frequently*/
 #define MC_PROTOCOL_CODE_SET_POSITION_CMD 0x12
 
 #define MC_PROTOCOL_CMD_START_MOTOR       0x01

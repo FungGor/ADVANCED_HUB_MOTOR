@@ -145,8 +145,7 @@ void ESCOOTER_Driving_Start()
     {
     	ESCOOTER_saveStatus(3);
     	ESCOOTER_UpdateDrivingState(3);
-    	//Send Error Codes
-    	//ERROR_HANDLE_MSG(HALL_SENSOR_FAIL);
+    	SET_ERROR_CODE(motorStatus.previous_error);
     }
 }
 

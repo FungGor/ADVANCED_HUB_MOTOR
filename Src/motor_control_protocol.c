@@ -26,6 +26,7 @@
 #include "ESCOOTER_ACK_MSG.h"
 #include "ESCOOTER_MainTask.h"
 #include "ESCOOTER_DRIVING.h"
+#include "ERROR_HANDLER.h"
 #include "POWER_CONTROL_LL.h"
 #include "POWER_CONTROL.h"
 
@@ -785,6 +786,22 @@ __weak void MCP_ReceivedFrame(MCP_Handle_t *pHandle, uint8_t Code, uint8_t *buff
       	retransmissionTimerStart();
       }
       break;
+
+    case MC_PROTOCOL_CHECK_MOTOR_FAILURE:
+    {
+    	/*$3F$01$01$41*/
+    	bNoError = true;
+    	RequireAck = false;
+      	FrameSentACK();
+      	POWER_PACKET_ACK();
+      	Stop_TxWaitTimer();
+      	Stop_RetransmissionTimer();
+      	uint8_t FAILURE = GET_ERROR_CODE();
+      	pHandle -> fFcpSend(pHandle->pFCP,ACK_NOERROR, &FAILURE,1);
+      	TxWaitTimerStart();
+      	retransmissionTimerStart();
+    }
+    break;
 
   case MC_PROTOCOL_CODE_NONE:
     {

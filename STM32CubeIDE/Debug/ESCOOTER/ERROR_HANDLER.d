@@ -1,9 +1,8 @@
 ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
- ../ESCOOTER/ERROR_HANDLER.h ../../Inc/main.h \
- ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
- ../../Inc/stm32f4xx_hal_conf.h \
- ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
- ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
+ ../ESCOOTER/ERROR_HANDLER.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
+ ../../Inc/mc_stm_types.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h \
  ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
  ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h \
  ../../Drivers/CMSIS/Include/core_cm4.h \
@@ -12,6 +11,10 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
  ../../Drivers/CMSIS/Include/cmsis_gcc.h \
  ../../Drivers/CMSIS/Include/mpu_armv7.h \
  ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ ../../Inc/stm32f4xx_hal_conf.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
+ ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
@@ -31,11 +34,6 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../../Inc/motorcontrol.h ../../Inc/mc_config.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
- ../../Inc/mc_stm_types.h \
- ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h \
@@ -43,6 +41,9 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dac.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h \
  ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h \
+ ../../Inc/main.h ../../Inc/motorcontrol.h ../../Inc/mc_config.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/revup_ctrl.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h \
@@ -60,9 +61,7 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_bus_voltage_sensor.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/motor_power_measurement.h \
- ../../Inc/user_interface.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
- ../../Inc/mc_interface.h \
+ ../../Inc/user_interface.h ../../Inc/mc_interface.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/state_machine.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_tuning.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/revup_ctrl.h \
@@ -96,11 +95,9 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
  ../../Inc/power_stage_parameters.h ../../Inc/drive_parameters.h \
  ../../Inc/mc_api.h
 ../ESCOOTER/ERROR_HANDLER.h:
-../../Inc/main.h:
-../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
-../../Inc/stm32f4xx_hal_conf.h:
-../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
-../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
+../../Inc/mc_stm_types.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h:
 ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
 ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h:
 ../../Drivers/CMSIS/Include/core_cm4.h:
@@ -109,6 +106,10 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
 ../../Drivers/CMSIS/Include/cmsis_gcc.h:
 ../../Drivers/CMSIS/Include/mpu_armv7.h:
 ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
+../../Inc/stm32f4xx_hal_conf.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
+../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:
@@ -128,12 +129,6 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../../Inc/motorcontrol.h:
-../../Inc/mc_config.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
-../../Inc/mc_stm_types.h:
-../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_system.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_tim.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h:
@@ -141,6 +136,11 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dac.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_dma.h:
 ../../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:
+../../Inc/main.h:
+../../Inc/motorcontrol.h:
+../../Inc/mc_config.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/revup_ctrl.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h:
@@ -160,7 +160,6 @@ ESCOOTER/ERROR_HANDLER.o: ../ESCOOTER/ERROR_HANDLER.c \
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/motor_power_measurement.h:
 ../../Inc/user_interface.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../Inc/mc_interface.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/state_machine.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_tuning.h:

@@ -5,29 +5,37 @@
  *      Author: TerenceLeung
  */
 #include "ERROR_HANDLER.h"
+#include "mc_type.h"
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+/*System is normal in default*/
+uint8_t ERROR_OCCURRED = MC_NO_ERROR;
+uint8_t ERROR_CODE = SYSTEM_NORMAL;
 
-uint8_t MSG_CHECK(uint8_t *msg, uint8_t size)
+void SET_ERROR_CODE(uint16_t error_code)
 {
-	uint16_t total = 0;
-	uint8_t n = 0;
-	while(n != size)
-	{
-		total += msg[n];
-		n++;
-	}
-	return (total & 0xFF) + ((total >> 8) & 0xFF);
+	ERROR_OCCURRED = error_code;
 }
 
-void ERROR_HANDLE_MSG(uint8_t error_code)
+uint8_t GET_ERROR_CODE()
 {
-    uint8_t *txFrame = (uint8_t*)malloc(sizeof(uint8_t*)*(ERROR_MSG_HANDLE_LENGTH+3));
-    txFrame[0] = ERROR_CODE_PACKET;
-    txFrame[1] = ERROR_MSG_HANDLE_LENGTH;
-    txFrame[2] = error_code;
-    txFrame[3] = MSG_CHECK(txFrame, 3);
-    send_error_message(txFrame,ERROR_MSG_HANDLE_LENGTH+3);
+	if(ERROR_OCCURRED == MC_NO_ERROR)
+	{
+		ERROR_CODE = SYSTEM_NORMAL;
+	}
+	else if(ERROR_OCCURRED == MC_SPEED_FDBK)
+	{
+		ERROR_CODE = HALL_SENSOR_FAIL;
+	}
+	else if(ERROR_OCCURRED == MC_OVER_VOLT || ERROR_OCCURRED == MC_UNDER_VOLT)
+	{
+		ERROR_CODE = ABNORMAL_CURRENT;
+	}
+	else if(ERROR_OCCURRED == MC_OVER_TEMP)
+	{
+		ERROR_CODE = ABNORMAL_BATTERY_TEMPERATURE;
+	}
+    return ERROR_CODE;
 }
